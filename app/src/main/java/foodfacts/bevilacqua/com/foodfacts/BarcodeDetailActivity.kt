@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
+import foodfacts.bevilacqua.com.foodfacts.api.SearchService
+import foodfacts.bevilacqua.com.foodfacts.data.DataRepository
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.jetbrains.anko.longToast
@@ -38,7 +40,11 @@ class BarcodeDetailActivity : AppCompatActivity() {
 
             toast(R.string.barcode_success)
             barcodeValue.text = barcode.displayValue
-            Log.d(TAG, "Barcode read: " + barcode.displayValue)
+            Log.v(TAG, "Barcode read: " + barcode.displayValue)
+
+            // Temporary calling data repository
+            val dataRepository = DataRepository(SearchService.create())
+            dataRepository.searchProductInfo(barcode.displayValue)
         } else {
             longToast(String.format(getString(R.string.barcode_error),
                     CommonStatusCodes.getStatusCodeString(resultCode)))
