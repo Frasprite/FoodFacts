@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">FoodFacts</string>
-    <string name="action_settings">Settings</string>
+    <string name="activity_reader_title">Read barcode</string>
+    <string name="activity_detail_title">Detail</string>
 
     <string name="ok">OK</string>
-    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection!</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.\nThe application will now exit.</string>
-    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
-    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="low_storage_error">Barcode detector dependencies cannot be downloaded due to low device storage.</string>
     <string name="barcode_header">Click the round button below to read a barcode</string>
     <string name="auto_focus">Auto Focus</string>
     <string name="use_flash">Use Flash</string>

@@ -54,6 +54,7 @@ import foodfacts.bevilacqua.com.foodfacts.barcode.BarcodeTrackerFactory;
 import foodfacts.bevilacqua.com.foodfacts.camera.CameraSource;
 import foodfacts.bevilacqua.com.foodfacts.camera.CameraSourcePreview;
 import foodfacts.bevilacqua.com.foodfacts.camera.GraphicOverlay;
+import foodfacts.bevilacqua.com.foodfacts.util.Constants;
 
 
 /**
@@ -65,22 +66,17 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
     private static final String TAG = BarcodeCaptureActivity.class.getSimpleName();
 
-    // intent request code to handle updating play services if needed.
+    // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
 
-    // permission request codes need to be < 256
+    // Permission request codes need to be < 256
     private static final int RC_HANDLE_CAMERA_PERM = 2;
-
-    // constants used to pass extra data in the intent
-    public static final String AutoFocus = "AutoFocus";
-    public static final String UseFlash = "UseFlash";
-    public static final String BarcodeObject = "Barcode";
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
     private GraphicOverlay<BarcodeGraphic> mGraphicOverlay;
 
-    // helper objects for detecting taps and pinches.
+    // Helper objects for detecting taps and pinches.
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
 
@@ -96,16 +92,16 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         mGraphicOverlay = findViewById(R.id.graphicOverlay);
 
         // read parameters from the intent used to launch the activity.
-        boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, false);
-        boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
+        boolean autoFocus = getIntent().getBooleanExtra(Constants.AutoFocus, false);
+        boolean useFlash = getIntent().getBooleanExtra(Constants.UseFlash, false);
 
-        // Check for the camera permission before accessing the camera.  If the
-        // permission is not granted yet, request permission.
+        // Check for the camera permission before accessing the camera.
+        // If the permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
             createCameraSource(autoFocus, useFlash);
         } else {
-            requestCameraPermission();
+            shouldShowExplanation();
         }
 
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
@@ -113,6 +109,47 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
         Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
                 Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    /**
+     * Method which evaluate if we should show an explanation dialog to user about camera usage.
+     */
+    private void shouldShowExplanation() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+            showExplanationDialog();
+        } else {
+            // No explanation needed, we can request the permission.
+            requestCameraPermission();
+
+            // PERMISSIONS_REQUEST_CAMERA is an app-defined int constant.
+            // The callback method gets the result of the request.
+        }
+    }
+
+    /**
+     * Open a dialog which ask to user an action.
+     */
+    private void showExplanationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.camera_permission_dialog_title)
+                .setMessage(R.string.camera_permission_dialog_message)
+                .setPositiveButton(R.string.dialog_grant_permission_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        requestCameraPermission();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_no_thanks_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        showSnackbar(new String[]{Manifest.permission.CAMERA});
+                    }
+                })
                 .show();
     }
 
@@ -132,6 +169,14 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             return;
         }
 
+        showSnackbar(permissions);
+    }
+
+    /**
+     * Show a snackbar on bottom of UI
+     * @param permissions a permission list to approve
+     */
+    private void showSnackbar(final String[] permissions) {
         final Activity thisActivity = this;
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -145,7 +190,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         findViewById(R.id.topLayout).setOnClickListener(listener);
         Snackbar.make(mGraphicOverlay, R.string.permission_camera_rationale,
                 Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.ok, listener)
+                .setAction(R.string.dialog_grant_permission_button, listener)
                 .show();
     }
 
@@ -280,8 +325,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Camera permission granted - initialize the camera source");
             // we have permission, so create the camerasource
-            boolean autoFocus = getIntent().getBooleanExtra(AutoFocus,false);
-            boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
+            boolean autoFocus = getIntent().getBooleanExtra(Constants.AutoFocus,false);
+            boolean useFlash = getIntent().getBooleanExtra(Constants.UseFlash, false);
             createCameraSource(autoFocus, useFlash);
             return;
         }
@@ -296,7 +341,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Multitracker sample")
+        builder.setTitle(R.string.camera_permission_dialog_title)
                 .setMessage(R.string.no_camera_permission)
                 .setPositiveButton(R.string.ok, listener)
                 .show();
@@ -361,14 +406,25 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             }
         }
 
-        if (best != null) {
-            Intent data = new Intent();
-            data.putExtra(BarcodeObject, best);
-            setResult(CommonStatusCodes.SUCCESS, data);
-            finish();
-            return true;
+        return returnBarcode(best);
+    }
+
+    /**
+     * Method which evaluate if barcode is valid.
+     * @param barcode the barcode to inspect and return to the main activity
+     * @return true if the barcode is valid; false otherwise
+     */
+    private boolean returnBarcode(Barcode barcode) {
+        if (barcode == null) {
+            return false;
         }
-        return false;
+
+        Intent data = new Intent(this, BarcodeDetailActivity.class);
+        data.putExtra(Constants.BarcodeObject, barcode);
+        data.putExtra(Constants.StatusCode, CommonStatusCodes.SUCCESS);
+        startActivity(data);
+        finish();
+        return true;
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -434,6 +490,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
     @Override
     public void onBarcodeDetected(Barcode barcode) {
-        //do something with barcode data returned
+        // Check if barcode is valid (to evaluate if detected barcode is valid or not)
+        //returnBarcode(barcode);
     }
 }

@@ -30,8 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BarcodeCaptureActivity"
-            android:label="Read Barcode"/>
+        <activity
+            android:name=".BarcodeCaptureActivity"
+            android:label="@string/activity_reader_title" />
+        <activity
+            android:name=".BarcodeDetailActivity"
+            android:label="@string/activity_detail_title" />
     </application>
 
 </manifest>
