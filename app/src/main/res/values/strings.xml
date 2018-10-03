@@ -17,4 +17,5 @@
     <string name="camera_permission_dialog_message">Please, grant access to your devices camera in order to scan barcode. The camera will be used only when you need it.</string>
     <string name="dialog_grant_permission_button">Allow</string>
     <string name="dialog_no_thanks_button">Deny</string>
+    <string name="no_internet_connection">It seems that you are not connected to internet!</string>
 </resources>
