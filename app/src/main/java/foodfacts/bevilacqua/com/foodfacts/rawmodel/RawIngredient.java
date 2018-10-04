@@ -3,7 +3,7 @@ package foodfacts.bevilacqua.com.foodfacts.rawmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient {
+public class RawIngredient {
 
     @SerializedName("id")
     @Expose

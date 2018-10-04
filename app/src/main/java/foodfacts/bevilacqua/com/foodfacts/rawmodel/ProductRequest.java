@@ -11,9 +11,9 @@ public class ProductRequest {
     @SerializedName("code")
     @Expose
     public String code;
-    @SerializedName("product")
+    @SerializedName("rawProduct")
     @Expose
-    public Product product;
+    public RawProduct rawProduct;
     @SerializedName("status_verbose")
     @Expose
     public String statusVerbose;
