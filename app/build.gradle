@@ -16,6 +16,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        // Enabling multidex support
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +47,7 @@ dependencies {
 
     // Other
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.0'
 
     // Test
     testImplementation 'junit:junit:4.12'

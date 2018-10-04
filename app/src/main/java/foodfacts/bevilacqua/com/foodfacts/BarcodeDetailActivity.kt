@@ -5,11 +5,15 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import foodfacts.bevilacqua.com.foodfacts.api.SearchService
 import foodfacts.bevilacqua.com.foodfacts.data.DataRepository
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
@@ -17,6 +21,9 @@ import org.jetbrains.anko.toast
 class BarcodeDetailActivity : AppCompatActivity() {
 
     private val TAG = BarcodeDetailActivity::class.java.simpleName
+
+    private var connectivityDisposable: Disposable? = null
+    private var internetDisposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,40 @@ class BarcodeDetailActivity : AppCompatActivity() {
             return
         }
 
+        inspectBarcode()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        connectivityDisposable = ReactiveNetwork.observeNetworkConnectivity(applicationContext)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { connectivity ->
+                    Log.d(TAG, connectivity.toString())
+                    val state = connectivity.state()
+                    val name = connectivity.typeName()
+                    Log.v(TAG, "connectivityDisposable - State $state name $name")
+                }
+
+        internetDisposable = ReactiveNetwork.observeInternetConnectivity()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { isConnectedToInternet ->
+                    Log.v(TAG, "internetDisposable - Connected to the web $isConnectedToInternet")
+                    if (isConnectedToInternet) {
+                        inspectBarcode()
+                    }
+                }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        safelyDispose(connectivityDisposable)
+        safelyDispose(internetDisposable)
+    }
+
+    private fun inspectBarcode() {
         val data = intent.extras
 
         if (data == null) {
@@ -56,6 +97,12 @@ class BarcodeDetailActivity : AppCompatActivity() {
         } else {
             longToast(String.format(getString(R.string.barcode_error),
                     CommonStatusCodes.getStatusCodeString(resultCode)))
+        }
+    }
+
+    private fun safelyDispose(disposable: Disposable?) {
+        if (disposable != null && !disposable.isDisposed) {
+            disposable.dispose()
         }
     }
 
