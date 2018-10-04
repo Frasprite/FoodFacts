@@ -13,12 +13,12 @@ class DataRepository(
 ) {
 
     /**
-     * Search product.
+     * Search rawProduct.
      */
     fun searchProductInfo(productBarcode: String) {
         searchProduct(service, productBarcode, {
-            Log.d("DataRepository", "searchProductInfo - Inserting product info: ${it.product} " +
-                    "${it.product.imageUrl} ${it.product.productName}")
+            Log.d("DataRepository", "searchProductInfo - Inserting rawProduct info: ${it.rawProduct} " +
+                    "${it.rawProduct.imageUrl} ${it.rawProduct.productName}")
             // TODO insert data here
         }, { error ->
             Log.d("DataRepository", "searchProductInfo - Error: $error")

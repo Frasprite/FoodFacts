@@ -19,7 +19,7 @@ private const val TAG = "SearchService"
 
 /**
  * Trigger a request to the OpenFoodFacts open API with the following params:
- * @param productBarcode text representation of product barcode
+ * @param productBarcode text representation of rawProduct barcode
  *
  * The result of the request is handled by the implementation of the functions passed as params
  * @param onSuccess function that defines how to handle received data
@@ -30,12 +30,12 @@ fun searchProduct(
         productBarcode: String,
         onSuccess: (productRequest: ProductRequest) -> Unit,
         onError: (error: String) -> Unit) {
-    Log.d(TAG, "searchProduct - Product barcode id $productBarcode")
+    Log.d(TAG, "searchProduct - RawProduct barcode id $productBarcode")
 
     service.searchProduct(productBarcode).enqueue(
             object : Callback<ProductRequest> {
                 override fun onFailure(call: Call<ProductRequest>, t: Throwable) {
-                    Log.d(TAG, "onFailure - Failed to get product data $call \n${t.message}")
+                    Log.d(TAG, "onFailure - Failed to get rawProduct data $call \n${t.message}")
                     onError(t.message ?: "Unknown error")
                 }
 
@@ -59,11 +59,11 @@ fun searchProduct(
 interface SearchService {
 
     /**
-     * Search product info.
+     * Search rawProduct info.
      *
-     * Complete sample: https://world.openfoodfacts.org/api/v0/product/3329770057258.json
+     * Complete sample: https://world.openfoodfacts.org/api/v0/rawProduct/3329770057258.json
      */
-    @GET("product/{productBarcode}.json")
+    @GET("rawProduct/{productBarcode}.json")
     fun searchProduct(@Path("productBarcode") productBarcode: String): Call<ProductRequest>
 
     companion object {
