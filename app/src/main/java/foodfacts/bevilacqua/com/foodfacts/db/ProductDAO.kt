@@ -14,7 +14,7 @@ import foodfacts.bevilacqua.com.foodfacts.model.Product
 interface ProductDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(products: List<Product>)
+    fun insert(product: Product)
 
     @Query("SELECT * FROM products WHERE barcode LIKE :barcode")
     fun loadProduct(barcode: String): LiveData<Product>

@@ -8,8 +8,6 @@ import android.util.Log
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
-import foodfacts.bevilacqua.com.foodfacts.api.SearchService
-import foodfacts.bevilacqua.com.foodfacts.data.DataRepository
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -57,7 +55,7 @@ class BarcodeDetailActivity : AppCompatActivity() {
                 .subscribe { isConnectedToInternet ->
                     Log.v(TAG, "internetDisposable - Connected to the web $isConnectedToInternet")
                     if (isConnectedToInternet) {
-                        inspectBarcode()
+                        // TODO do something when internet is available or not
                     }
                 }
     }
@@ -92,7 +90,7 @@ class BarcodeDetailActivity : AppCompatActivity() {
             Log.v(TAG, "Barcode read: " + barcode.displayValue)
 
             // Temporary calling data repository
-            val dataRepository = DataRepository(SearchService.create())
+            val dataRepository = Injection.provideDataRepository(this)
             dataRepository.searchProductInfo(barcode.displayValue)
         } else {
             longToast(String.format(getString(R.string.barcode_error),
