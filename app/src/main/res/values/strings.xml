@@ -18,4 +18,7 @@
     <string name="dialog_grant_permission_button">Allow</string>
     <string name="dialog_no_thanks_button">Deny</string>
     <string name="no_internet_connection">It seems that you are not connected to internet!</string>
+    <string name="product_image_description">Product image</string>
+    <string name="format">%1$td/%1$tm/%1$tY</string>
+    <string name="energy">%1$s %2$s</string>
 </resources>

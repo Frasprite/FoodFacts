@@ -14,7 +14,6 @@ import foodfacts.bevilacqua.com.foodfacts.util.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_detail.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 
@@ -88,7 +87,6 @@ class BarcodeDetailActivity : AppCompatActivity() {
             }
 
             toast(R.string.barcode_success)
-            barcodeValue.text = barcode.displayValue
             Log.v(TAG, "Barcode read: " + barcode.displayValue)
 
             // Temporary calling data repository

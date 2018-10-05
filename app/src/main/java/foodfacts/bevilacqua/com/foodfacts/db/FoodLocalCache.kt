@@ -1,5 +1,6 @@
 package foodfacts.bevilacqua.com.foodfacts.db
 
+import android.arch.lifecycle.LiveData
 import foodfacts.bevilacqua.com.foodfacts.model.Ingredient
 import foodfacts.bevilacqua.com.foodfacts.model.Product
 import foodfacts.bevilacqua.com.foodfacts.model.ProductIngredientJoin
@@ -31,5 +32,9 @@ class FoodLocalCache(
         ioExecutor.execute {
             productIngredientJoinDao.insert(productIngredients)
         }
+    }
+
+    fun loadProduct(productBarcode: String): LiveData<Product> {
+        return productDao.loadProduct(productBarcode)
     }
 }

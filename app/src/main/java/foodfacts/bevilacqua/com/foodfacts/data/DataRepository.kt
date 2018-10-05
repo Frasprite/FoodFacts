@@ -1,5 +1,6 @@
 package foodfacts.bevilacqua.com.foodfacts.data
 
+import android.arch.lifecycle.LiveData
 import android.util.Log
 import foodfacts.bevilacqua.com.foodfacts.api.SearchService
 import foodfacts.bevilacqua.com.foodfacts.api.searchProduct
@@ -18,7 +19,7 @@ class DataRepository(
 ) {
 
     /**
-     * Search rawProduct.
+     * Search product info on web.
      */
     fun searchProductInfo(productBarcode: String) {
         searchProduct(service, productBarcode, {
@@ -47,5 +48,12 @@ class DataRepository(
         }, { error ->
             Log.w("DataRepository", "searchProductInfo - Error: $error")
         })
+    }
+
+    /**
+     * Load product info from database.
+     */
+    fun loadProduct(productBarcode: String): LiveData<Product> {
+        return cache.loadProduct(productBarcode)
     }
 }
