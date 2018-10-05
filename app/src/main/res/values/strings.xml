@@ -10,9 +10,8 @@
     <string name="barcode_header">Click the round button below to read a barcode</string>
     <string name="auto_focus">Auto Focus</string>
     <string name="use_flash">Use Flash</string>
-    <string name="barcode_success">Barcode read successfully</string>
     <string name="barcode_failure">No barcode captured</string>
-    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+    <string name="barcode_error">"Error reading barcode!"</string>
     <string name="camera_permission_dialog_title">Camera permission</string>
     <string name="camera_permission_dialog_message">Please, grant access to your devices camera in order to scan barcode. The camera will be used only when you need it.</string>
     <string name="dialog_grant_permission_button">Allow</string>

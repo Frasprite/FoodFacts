@@ -6,5 +6,4 @@ object Constants {
     const val AutoFocus = "AutoFocus"
     const val UseFlash = "UseFlash"
     const val BarcodeObject = "Barcode"
-    const val StatusCode = "StatusCode"
 }

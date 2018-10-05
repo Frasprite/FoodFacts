@@ -17,6 +17,7 @@ import foodfacts.bevilacqua.com.foodfacts.viewmodel.ProductViewModel
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.vision.barcode.Barcode
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
+import org.jetbrains.anko.longToast
 
 
 /**
@@ -43,9 +44,7 @@ class DetailFragment : Fragment() {
      * Function used to subscribe to product model.
      */
     private fun subscribeToProductModel() {
-        val bundle = activity!!.intent.extras
-        val barcode = bundle?.getParcelable<Barcode>(Constants.BarcodeObject)
-        val productBarcode = barcode?.displayValue
+        val productBarcode = inspectBarcode()
 
         if (productBarcode == null) {
             Log.w(TAG, "subscribeToProductModel - Barcode not found!")
@@ -60,6 +59,7 @@ class DetailFragment : Fragment() {
 
         productModel.observableProduct.observe(this, Observer<Product> {
             if (it != null) {
+                Log.d(TAG, "subscribeToProductModel - Product found on DB")
                 productModel.setProduct(it)
 
                 val requestOptions = RequestOptions()
@@ -70,8 +70,32 @@ class DetailFragment : Fragment() {
                         .load(productModel.product.get()?.imageUrl)
                         .apply(requestOptions)
                         .into(mBinding?.productImageView!!)
+            } else {
+                // Product does not exists, search it on API
+                Log.d(TAG, "subscribeToProductModel - Product NOT found on DB, search data on web")
+                productModel.searchProduct(productBarcode)
             }
         })
+    }
+
+    private fun inspectBarcode(): String? {
+        val data = activity!!.intent.extras
+
+        if (data == null) {
+            activity?.longToast(R.string.barcode_failure)
+            Log.d(TAG, "No barcode captured, intent data is null")
+            return null
+        }
+
+        val barcode = data.getParcelable<Barcode>(Constants.BarcodeObject)
+
+        if (barcode == null) {
+            activity?.longToast(getString(R.string.barcode_error))
+            Log.w(TAG, "No barcode captured, because is null")
+            return null
+        }
+
+        return barcode.displayValue
     }
 
     companion object {

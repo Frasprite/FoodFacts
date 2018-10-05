@@ -1,7 +1,6 @@
 package foodfacts.bevilacqua.com.foodfacts.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
@@ -10,7 +9,7 @@ import foodfacts.bevilacqua.com.foodfacts.Injection
 import foodfacts.bevilacqua.com.foodfacts.data.DataRepository
 import foodfacts.bevilacqua.com.foodfacts.model.Product
 
-class ProductViewModel(application: Application, repository: DataRepository, productBarcode: String) : AndroidViewModel(application) {
+class ProductViewModel(private val repository: DataRepository, productBarcode: String) : ViewModel() {
 
     val observableProduct: LiveData<Product> = repository.loadProduct(productBarcode)
 
@@ -18,6 +17,10 @@ class ProductViewModel(application: Application, repository: DataRepository, pro
 
     fun setProduct(product: Product) {
         this.product.set(product)
+    }
+
+    fun searchProduct(productBarcode: String) {
+        repository.searchProductInfo(productBarcode)
     }
 
     /**
@@ -32,7 +35,7 @@ class ProductViewModel(application: Application, repository: DataRepository, pro
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
-            return ProductViewModel(mApplication, mRepository, mProductBarcode) as T
+            return ProductViewModel(mRepository, mProductBarcode) as T
         }
     }
 }

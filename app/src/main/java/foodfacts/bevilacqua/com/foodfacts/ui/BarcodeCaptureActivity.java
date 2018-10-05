@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.CommonStatusCodes;
 
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -422,7 +421,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
         Intent data = new Intent(this, BarcodeDetailActivity.class);
         data.putExtra(Constants.BarcodeObject, barcode);
-        data.putExtra(Constants.StatusCode, CommonStatusCodes.SUCCESS);
         startActivity(data);
         finish();
         return true;
