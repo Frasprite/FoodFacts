@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package foodfacts.bevilacqua.com.foodfacts;
+package foodfacts.bevilacqua.com.foodfacts.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -48,6 +48,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+import foodfacts.bevilacqua.com.foodfacts.R;
 import foodfacts.bevilacqua.com.foodfacts.barcode.BarcodeGraphic;
 import foodfacts.bevilacqua.com.foodfacts.barcode.BarcodeGraphicTracker;
 import foodfacts.bevilacqua.com.foodfacts.barcode.BarcodeTrackerFactory;

@@ -1,4 +1,4 @@
-package foodfacts.bevilacqua.com.foodfacts
+package foodfacts.bevilacqua.com.foodfacts.ui
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,6 +8,8 @@ import android.util.Log
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
+import foodfacts.bevilacqua.com.foodfacts.Injection
+import foodfacts.bevilacqua.com.foodfacts.R
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
