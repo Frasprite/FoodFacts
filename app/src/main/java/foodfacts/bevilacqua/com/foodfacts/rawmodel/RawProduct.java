@@ -12,7 +12,7 @@ public class RawProduct {
     @SerializedName("image_url")
     @Expose
     public String imageUrl;
-    @SerializedName("rawIngredients")
+    @SerializedName("ingredients")
     @Expose
     public List<RawIngredient> rawIngredients = null;
     @SerializedName("nutriments")
