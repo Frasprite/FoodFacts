@@ -64,6 +64,13 @@ class DataRepository(
     }
 
     /**
+     * Function which load all products from database.
+     */
+    fun loadAllProducts(): LiveData<List<Product>> {
+        return cache.loadAllProducts()
+    }
+
+    /**
      * Load list of ingredients for specific product.
      */
     fun loadIngredients(productBarcode: String): LiveData<List<Ingredient>> {

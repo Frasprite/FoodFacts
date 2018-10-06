@@ -38,6 +38,10 @@ class FoodLocalCache(
         return productDao.loadProduct(productBarcode)
     }
 
+    fun loadAllProducts(): LiveData<List<Product>> {
+        return productDao.loadAllProducts()
+    }
+
     fun loadIngredients(productBarcode: String): LiveData<List<Ingredient>> {
         return productIngredientJoinDao.getIngredientsForProduct(productBarcode)
     }
