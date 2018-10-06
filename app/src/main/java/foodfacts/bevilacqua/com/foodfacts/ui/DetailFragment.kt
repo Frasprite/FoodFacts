@@ -76,11 +76,9 @@ class DetailFragment : Fragment() {
                         .apply(requestOptions)
                         .into(mBinding?.productImageView!!)
             } else {
-                // Product does not exists, search it on API
-                Log.d(TAG, "subscribeToProductModel - Product NOT found on DB, search data on web")
-                productModel.searchProduct(productBarcode)
-
-                // TODO create an alert when a barcode is not found
+                // Product does not exists
+                Log.v(TAG, "subscribeToProductModel - Product NOT found on DB and on API")
+                activity?.longToast(R.string.barcode_not_found)
             }
         })
     }

@@ -18,4 +18,7 @@ interface ProductDAO {
 
     @Query("SELECT * FROM products WHERE barcode LIKE :barcode")
     fun loadProduct(barcode: String): LiveData<Product>
+
+    @Query("SELECT * FROM products WHERE barcode = :barcode AND timestampScanner > :lastRefreshMax")
+    fun containProduct(barcode: String, lastRefreshMax: Long): Product
 }

@@ -19,10 +19,6 @@ class ProductViewModel(private val repository: DataRepository, productBarcode: S
         this.product.set(product)
     }
 
-    fun searchProduct(productBarcode: String) {
-        repository.searchProductInfo(productBarcode)
-    }
-
     /**
      * A creator is used to inject the product barcode into the ViewModel.
      *

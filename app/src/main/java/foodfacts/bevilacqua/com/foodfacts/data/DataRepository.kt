@@ -8,6 +8,9 @@ import foodfacts.bevilacqua.com.foodfacts.db.FoodLocalCache
 import foodfacts.bevilacqua.com.foodfacts.model.Ingredient
 import foodfacts.bevilacqua.com.foodfacts.model.Product
 import foodfacts.bevilacqua.com.foodfacts.model.ProductIngredientJoin
+import org.jetbrains.anko.doAsync
+import java.util.*
+
 
 /**
  * Repository class that works with local and remote data sources.
@@ -18,10 +21,12 @@ class DataRepository(
         private val cache: FoodLocalCache
 ) {
 
+    private val FRESH_TIMEOUT_IN_DAYS = 7
+
     /**
      * Search product info on web.
      */
-    fun searchProductInfo(productBarcode: String) {
+    private fun searchProductInfo(productBarcode: String) {
         searchProduct(service, productBarcode, {
             Log.d("DataRepository", "searchProductInfo - Found product info")
 
@@ -54,7 +59,8 @@ class DataRepository(
      * Load product info from database.
      */
     fun loadProduct(productBarcode: String): LiveData<Product> {
-        return cache.loadProduct(productBarcode)
+        refreshProduct(productBarcode) // try to refresh data if possible from API
+        return cache.loadProduct(productBarcode) // return a LiveData directly from the database
     }
 
     /**
@@ -62,5 +68,30 @@ class DataRepository(
      */
     fun loadIngredients(productBarcode: String): LiveData<List<Ingredient>> {
         return cache.loadIngredients(productBarcode)
+    }
+
+    /**
+     * Checking (asynchronously) if product should be refreshed.
+     */
+    private fun refreshProduct(productBarcode: String) {
+        doAsync {
+            // Check if product was fetched recently
+            val productExists = cache.containProduct(productBarcode, getMaxRefreshTime(Date())) != null
+
+            // Check if product have to be updated
+            if (!productExists) {
+                searchProductInfo(productBarcode)
+            }
+        }
+    }
+
+    /**
+     * Evaluate how much time should be passed since last sync.
+     */
+    private fun getMaxRefreshTime(currentDate: Date): Long {
+        val cal = Calendar.getInstance()
+        cal.time = currentDate
+        cal.add(Calendar.DAY_OF_MONTH, -FRESH_TIMEOUT_IN_DAYS)
+        return cal.time.time
     }
 }

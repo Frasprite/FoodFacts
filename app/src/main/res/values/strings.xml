@@ -22,4 +22,5 @@
     <string name="energy">%1$s %2$s</string>
     <string name="no_ingredients">Loading ingredients, please wait..</string>
     <string name="no_ingredients_image">Loading ingredients</string>
+    <string name="barcode_not_found">Product not found on server!</string>
 </resources>
