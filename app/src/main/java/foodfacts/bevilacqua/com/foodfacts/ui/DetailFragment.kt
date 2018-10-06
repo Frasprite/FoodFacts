@@ -130,7 +130,7 @@ class DetailFragment : Fragment() {
             return null
         }
 
-        val barcode = data.getParcelable<Barcode>(Constants.BarcodeObject)
+        val barcode = data.getString(Constants.BarcodeObject)
 
         if (barcode == null) {
             activity?.longToast(getString(R.string.barcode_error))
@@ -138,7 +138,7 @@ class DetailFragment : Fragment() {
             return null
         }
 
-        return barcode.displayValue
+        return barcode
     }
 
     companion object {

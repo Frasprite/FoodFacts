@@ -68,4 +68,10 @@ class MainActivity : AppCompatActivity() {
         f()
         return true
     }
+
+    fun launchDetailView(barcode: String) {
+        val data = Intent(this, BarcodeDetailActivity::class.java)
+        data.putExtra(Constants.BarcodeObject, barcode)
+        startActivity(data)
+    }
 }

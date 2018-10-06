@@ -420,7 +420,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         }
 
         Intent data = new Intent(this, BarcodeDetailActivity.class);
-        data.putExtra(Constants.BarcodeObject, barcode);
+        data.putExtra(Constants.BarcodeObject, barcode.displayValue);
         startActivity(data);
         finish();
         return true;
