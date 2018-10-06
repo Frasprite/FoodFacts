@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,10 @@ import foodfacts.bevilacqua.com.foodfacts.model.Product
 import foodfacts.bevilacqua.com.foodfacts.viewmodel.ProductViewModel
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.vision.barcode.Barcode
+import foodfacts.bevilacqua.com.foodfacts.model.Ingredient
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
+import foodfacts.bevilacqua.com.foodfacts.viewmodel.IngredientListViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
 import org.jetbrains.anko.longToast
 
 
@@ -38,6 +42,7 @@ class DetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         subscribeToProductModel()
+        subscribeToIngredientsModel()
     }
 
     /**
@@ -74,10 +79,50 @@ class DetailFragment : Fragment() {
                 // Product does not exists, search it on API
                 Log.d(TAG, "subscribeToProductModel - Product NOT found on DB, search data on web")
                 productModel.searchProduct(productBarcode)
+
+                // TODO create an alert when a barcode is not found
             }
         })
     }
 
+    /**
+     * Function used to subscribe to product ingredients list model.
+     */
+    private fun subscribeToIngredientsModel() {
+        val productBarcode = inspectBarcode()
+
+        if (productBarcode == null) {
+            Log.w(TAG, "subscribeToIngredientsModel - Barcode not found!")
+            return
+        }
+
+        ingredientsList.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+
+        val adapter = IngredientRecyclerViewAdapter()
+        ingredientsList.adapter = adapter
+
+        val ingredientListViewModel = ViewModelProviders.of(this,
+                IngredientListViewModel.Factory(activity!!.application,
+                        productBarcode)).get(IngredientListViewModel::class.java)
+
+        ingredientListViewModel.observableIngredientList.observe(this, Observer<List<Ingredient>> {
+            if (it != null) {
+                Log.d(TAG, "subscribeToIngredientsModel - List size : ${it.size}")
+                ingredientListViewModel.setIngredientList(it)
+                if (it.isEmpty()) {
+                    emptyList.visibility = View.VISIBLE
+                } else {
+                    emptyList.visibility = View.GONE
+                }
+                adapter.submitList(it)
+                adapter.notifyDataSetChanged()
+            }
+        })
+    }
+
+    /**
+     * Inspecting found barcode.
+     */
     private fun inspectBarcode(): String? {
         val data = activity!!.intent.extras
 

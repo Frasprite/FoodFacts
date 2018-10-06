@@ -20,4 +20,6 @@
     <string name="product_image_description">Product image</string>
     <string name="format">%1$td/%1$tm/%1$tY</string>
     <string name="energy">%1$s %2$s</string>
+    <string name="no_ingredients">Loading ingredients, please wait..</string>
+    <string name="no_ingredients_image">Loading ingredients</string>
 </resources>

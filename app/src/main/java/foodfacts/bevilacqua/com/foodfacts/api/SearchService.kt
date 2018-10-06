@@ -44,7 +44,14 @@ fun searchProduct(
                     if (response.isSuccessful) {
                         val productRequest = response.body()
                         if (productRequest != null) {
-                            onSuccess(productRequest)
+                            when (productRequest.status) {
+                                0 -> {
+                                    onError("No product found!")
+                                }
+                                1 -> {
+                                    onSuccess(productRequest)
+                                }
+                            }
                         } else {
                             onError("Null body response!")
                         }
