@@ -77,7 +77,8 @@ class DetailFragment : Fragment() {
             } else {
                 // Product does not exists
                 Log.v(TAG, "subscribeToProductModel - Product NOT found on DB and on API")
-                activity?.longToast(R.string.barcode_not_found)
+                // TODO update UI until data is fetched
+                //activity?.longToast(R.string.barcode_not_found)
             }
         })
     }
