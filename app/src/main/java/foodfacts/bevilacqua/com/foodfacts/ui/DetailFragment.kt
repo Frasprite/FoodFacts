@@ -16,7 +16,6 @@ import foodfacts.bevilacqua.com.foodfacts.databinding.FragmentDetailBinding
 import foodfacts.bevilacqua.com.foodfacts.model.Product
 import foodfacts.bevilacqua.com.foodfacts.viewmodel.ProductViewModel
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.vision.barcode.Barcode
 import foodfacts.bevilacqua.com.foodfacts.model.Ingredient
 import foodfacts.bevilacqua.com.foodfacts.util.Constants
 import foodfacts.bevilacqua.com.foodfacts.viewmodel.IngredientListViewModel

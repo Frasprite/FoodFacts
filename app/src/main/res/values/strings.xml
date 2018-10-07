@@ -28,4 +28,5 @@
     <string name="no_products_image">No products on list</string>
     <string name="calories_detail">Calories</string>
     <string name="ingredients_detail">Ingredients</string>
+    <string name="retry">Retry</string>
 </resources>

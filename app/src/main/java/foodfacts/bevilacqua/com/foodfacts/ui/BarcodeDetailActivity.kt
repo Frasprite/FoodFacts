@@ -3,6 +3,7 @@ package foodfacts.bevilacqua.com.foodfacts.ui
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -10,7 +11,7 @@ import foodfacts.bevilacqua.com.foodfacts.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.longToast
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class BarcodeDetailActivity : AppCompatActivity() {
 
@@ -22,8 +23,13 @@ class BarcodeDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         if (!checkConnection(this)) {
-            longToast(R.string.no_internet_connection)
-            Log.v(TAG, "No internet connection, amen..")
+            Log.v(TAG, "No internet connection, firing a snackbar..")
+            Snackbar.make(detailMainLayout, R.string.no_internet_connection, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.retry) {
+                        // Retry downloading data by simply recreating activity
+                        this@BarcodeDetailActivity.recreate()
+                    }
+                    .show()
             return
         }
     }
