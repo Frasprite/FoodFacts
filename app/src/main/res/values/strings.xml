@@ -7,7 +7,7 @@
     <string name="permission_camera_rationale">Access to the camera is needed for detection!</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.\nThe application will now exit.</string>
     <string name="low_storage_error">Barcode detector dependencies cannot be downloaded due to low device storage.</string>
-    <string name="barcode_header">Click the round button below to read a barcode</string>
+    <string name="barcode_header">Click the round button below to read a barcode and add a product!</string>
     <string name="auto_focus">Auto Focus</string>
     <string name="use_flash">Use Flash</string>
     <string name="barcode_failure">No barcode captured</string>
@@ -18,7 +18,7 @@
     <string name="dialog_no_thanks_button">Deny</string>
     <string name="no_internet_connection">It seems that you are not connected to internet!</string>
     <string name="product_image_description">Product image</string>
-    <string name="format">%1$td/%1$tm/%1$tY</string>
+    <string name="format">%1$td/%1$tm/%1$tY at %1$tH:%1$tM</string>
     <string name="energy">%1$s %2$s</string>
     <string name="no_ingredients">Loading ingredients, please wait..</string>
     <string name="no_ingredients_image">Loading ingredients</string>
