@@ -29,7 +29,7 @@ As an app user :
 * Add entity model of product and create database
 * Save data found from GET operation on DB and show found data on detail activity
 * Show saved data on a list / grid on main activity
-* Create an UI (icons, launcher icons, activity interfaces)
+* Create an UI (icons, launcher icons, activity interfaces, theme)
 * Improve / create test
 
 ### Android UI composition
