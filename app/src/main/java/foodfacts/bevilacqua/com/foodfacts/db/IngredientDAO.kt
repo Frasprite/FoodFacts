@@ -17,5 +17,5 @@ interface IngredientDAO {
     fun insert(ingredients: List<Ingredient>)
 
     @Query("SELECT * FROM ingredients WHERE id LIKE :id")
-    fun loadProduct(id: String): LiveData<Ingredient>
+    fun loadIngredient(id: String): LiveData<Ingredient>
 }
