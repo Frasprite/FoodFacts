@@ -19,9 +19,12 @@
     <string name="no_internet_connection">It seems that you are not connected to internet!</string>
     <string name="product_image_description">Product image</string>
     <string name="format">%1$td/%1$tm/%1$tY at %1$tH:%1$tM</string>
+    <string name="detail_format">Scanned %1$td/%1$tm/%1$tY at %1$tH:%1$tM</string>
     <string name="energy">%1$s %2$s</string>
     <string name="no_ingredients">Loading ingredients, please wait..</string>
     <string name="no_ingredients_image">Loading ingredients</string>
     <string name="barcode_not_found">Product not found on server!</string>
     <string name="no_products_image">No products on list</string>
+    <string name="calories_detail">Calories</string>
+    <string name="ingredients_detail">Ingredients</string>
 </resources>

@@ -29,7 +29,7 @@ internal class ProductRecyclerViewAdapter(private val productClickCallback: Prod
         holder.binding.product = values[position]
 
         val requestOptions = RequestOptions()
-        requestOptions.placeholder(R.drawable.ic_barcode)
+        requestOptions.placeholder(R.drawable.ic_food)
         requestOptions.error(R.drawable.ic_broken_image)
 
         Glide.with(holder.itemView.context)

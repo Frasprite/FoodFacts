@@ -40,7 +40,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_barcode" />
+                app:srcCompat="@drawable/ic_food" />
 
             <TextView
                 android:id="@+id/nameTextView"
@@ -69,6 +69,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/ic_scan_time"
+                android:drawablePadding="4dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical|start"
                 android:maxLines="1"

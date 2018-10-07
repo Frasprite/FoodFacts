@@ -68,7 +68,7 @@ class DetailFragment : Fragment() {
                 productModel.setProduct(it)
 
                 val requestOptions = RequestOptions()
-                requestOptions.placeholder(R.drawable.ic_barcode)
+                requestOptions.placeholder(R.drawable.ic_food)
                 requestOptions.error(R.drawable.ic_broken_image)
 
                 Glide.with(this)
