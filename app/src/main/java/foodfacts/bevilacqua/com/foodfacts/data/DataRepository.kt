@@ -28,30 +28,34 @@ class DataRepository(
      */
     private fun searchProductInfo(productBarcode: String) {
         searchProduct(service, productBarcode, {
-            Log.d("DataRepository", "searchProductInfo - Found product info")
+            Log.d(TAG, "searchProductInfo - Found product info")
 
-            // Creating product
-            val rawProduct = it.rawProduct
-            val nutriments = rawProduct.nutriments
-            val product = Product(productBarcode, rawProduct.productName, rawProduct.imageUrl,
-                    nutriments.energy, nutriments.energyUnit, System.currentTimeMillis())
-            Log.v("DataRepository", "searchProductInfo - Adding $product")
-            cache.insertProduct(product)
+            if (it.rawProduct != null) {
+                // Creating product
+                val rawProduct = it.rawProduct
+                val nutriments = rawProduct.nutriments
+                val product = Product(productBarcode, rawProduct.productName, rawProduct.imageUrl,
+                        nutriments.energy, nutriments.energyUnit, System.currentTimeMillis())
+                Log.v(TAG, "searchProductInfo - Adding $product")
+                cache.insertProduct(product)
 
-            // Creating ingredient and product ingredients reference
-            val rawIngredients = rawProduct.rawIngredients
-            val ingredients = ArrayList<Ingredient>()
-            val productIngredients = ArrayList<ProductIngredientJoin>()
-            for (rawIngredient in rawIngredients) {
-                ingredients.add(Ingredient(rawIngredient.id, rawIngredient.text))
-                productIngredients.add(ProductIngredientJoin(productBarcode, rawIngredient.id))
+                // Creating ingredient and product ingredients reference
+                val rawIngredients = rawProduct.rawIngredients
+                val ingredients = ArrayList<Ingredient>()
+                val productIngredients = ArrayList<ProductIngredientJoin>()
+                for (rawIngredient in rawIngredients) {
+                    ingredients.add(Ingredient(rawIngredient.id, rawIngredient.text))
+                    productIngredients.add(ProductIngredientJoin(productBarcode, rawIngredient.id))
+                }
+
+                Log.v(TAG, "searchProductInfo - Adding $ingredients")
+                cache.insertIngredients(ingredients)
+                cache.insertProductIngredients(productIngredients)
+            } else {
+                Log.w(TAG, "Product not found!")
             }
-
-            Log.v("DataRepository", "searchProductInfo - Adding $ingredients")
-            cache.insertIngredients(ingredients)
-            cache.insertProductIngredients(productIngredients)
         }, { error ->
-            Log.w("DataRepository", "searchProductInfo - Error: $error")
+            Log.w(TAG, "searchProductInfo - Error: $error")
         })
     }
 
@@ -100,5 +104,9 @@ class DataRepository(
         cal.time = currentDate
         cal.add(Calendar.DAY_OF_MONTH, -FRESH_TIMEOUT_IN_DAYS)
         return cal.time.time
+    }
+
+    companion object {
+        private val TAG = DataRepository::class.java.simpleName
     }
 }
