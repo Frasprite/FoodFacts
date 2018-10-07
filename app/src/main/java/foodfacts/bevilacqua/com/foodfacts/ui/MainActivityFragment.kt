@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.support.v4.app.Fragment
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +48,7 @@ class MainActivityFragment : Fragment() {
                 }
             }
         })
-        productsList.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+
         productsList.adapter = productAdapter
 
         val productListViewModel = ViewModelProviders.of(this,
