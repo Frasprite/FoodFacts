@@ -27,7 +27,7 @@ This first release will be created by implementing this features step by step:
 
 * Create and configure project
 * Add library for barcode scanning and show result on secondary activity
-* Add library for HTTP GET operation on API
+* Add library for HTTP GET operation on API: for simplify the code, the app will save only desired data from JSON
 * Add entity model of product and create database
 * Save data found from GET operation on DB and show found data on detail activity
 * Show saved data on a list / grid on main activity
