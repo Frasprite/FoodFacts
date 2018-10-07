@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FoodFacts</string>
     <string name="activity_reader_title">Read barcode</string>
@@ -11,7 +12,7 @@
     <string name="auto_focus">Auto Focus</string>
     <string name="use_flash">Use Flash</string>
     <string name="barcode_failure">No barcode captured</string>
-    <string name="barcode_error">"Error reading barcode!"</string>
+    <string name="barcode_error">Error reading barcode!</string>
     <string name="camera_permission_dialog_title">Camera permission</string>
     <string name="camera_permission_dialog_message">Please, grant access to your devices camera in order to scan barcode. The camera will be used only when you need it.</string>
     <string name="dialog_grant_permission_button">Allow</string>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FoodFacts</string>
+    <string name="activity_reader_title">Lire le code-barres</string>
+    <string name="activity_detail_title">Détails</string>
+
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">L\'accès à la caméra est nécessaire pour la détection du code-barres!</string>
+    <string name="no_camera_permission">Cette application ne peut pas s\'exécuter car elle n\'a pas l\'autorisation de la caméra. L\'application va s\'arrêter.</string>
+    <string name="low_storage_error">Les dépendances du détecteur de codes à barres ne peuvent pas être téléchargées en raison de la faible capacité de stockage de l\'appareil.</string>
+    <string name="barcode_header">Cliquez sur le bouton rond ci-dessous pour lire un code-barres et ajouter un produit!</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Utiliser Flash</string>
+    <string name="barcode_failure">Aucun code-barres capturé</string>
+    <string name="barcode_error">Erreur de lecture du code-barres!</string>
+    <string name="camera_permission_dialog_title">Autorisation camera</string>
+    <string name="camera_permission_dialog_message">Veuillez autoriser l\'accès à l\'appareil photo de votre appareil photo afin de scanner le code-barres.\nL\'appareil photo ne sera utilisé que lorsque vous en aurez besoin.</string>
+    <string name="dialog_grant_permission_button">Autoriser</string>
+    <string name="dialog_no_thanks_button">Refuser</string>
+    <string name="no_internet_connection">Il semble que vous n\'êtes pas connecté à internet!</string>
+    <string name="product_image_description">Image du produit</string>
+    <string name="format">%1$td/%1$tm/%1$tY à %1$tH:%1$tM</string>
+    <string name="detail_format">Numérisé %1$td/%1$tm/%1$tY à %1$tH:%1$tM</string>
+    <string name="energy">%1$s %2$s</string>
+    <string name="no_ingredients">Chargement des ingrédients, veuillez patienter..</string>
+    <string name="no_ingredients_image">Chargement des ingrédients</string>
+    <string name="barcode_not_found">Produit non trouvé sur le serveur!</string>
+    <string name="no_products_image">Aucun produit sur la liste</string>
+    <string name="calories_detail">Calories</string>
+    <string name="ingredients_detail">Ingrédients</string>
+</resources>
