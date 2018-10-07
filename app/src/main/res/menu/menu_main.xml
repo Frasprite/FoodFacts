@@ -5,7 +5,7 @@
     <item
         android:id="@+id/auto_focus"
         android:checkable="true"
-        android:checked="false"
+        android:checked="true"
         android:title="@string/auto_focus"
         android:titleCondensed="Persist" />
 
