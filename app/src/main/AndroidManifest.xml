@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="foodfacts.bevilacqua.com.foodfacts">
+    package="foodfacts.eatwell.com.foodfacts">
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -23,7 +23,7 @@
             android:value="barcode" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="foodfacts.eatwell.com.foodfacts.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -33,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.BarcodeCaptureActivity"
+            android:name="foodfacts.eatwell.com.foodfacts.ui.BarcodeCaptureActivity"
             android:label="@string/activity_reader_title" />
         <activity
-            android:name=".ui.BarcodeDetailActivity"
+            android:name="foodfacts.eatwell.com.foodfacts.ui.BarcodeDetailActivity"
             android:label="@string/activity_detail_title" />
     </application>
 

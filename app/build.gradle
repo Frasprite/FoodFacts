@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "foodfacts.bevilacqua.com.foodfacts"
+        applicationId "foodfacts.eatwell.com.foodfacts"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

@@ -9,7 +9,7 @@
 
         <variable
             name="productViewModel"
-            type="foodfacts.bevilacqua.com.foodfacts.viewmodel.ProductViewModel" />
+            type="foodfacts.eatwell.com.foodfacts.viewmodel.ProductViewModel" />
 
     </data>
 

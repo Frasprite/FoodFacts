@@ -6,16 +6,16 @@
     android:keepScreenOn="true"
     android:orientation="vertical">
 
-    <foodfacts.bevilacqua.com.foodfacts.camera.CameraSourcePreview
+    <foodfacts.eatwell.com.foodfacts.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <foodfacts.bevilacqua.com.foodfacts.camera.GraphicOverlay
+        <foodfacts.eatwell.com.foodfacts.camera.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </foodfacts.bevilacqua.com.foodfacts.camera.CameraSourcePreview>
+    </foodfacts.eatwell.com.foodfacts.camera.CameraSourcePreview>
 
 </LinearLayout>
